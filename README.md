@@ -16,6 +16,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Angular](https://angular.io/startg)
 - [Firebase](https://firebase.google.com/)
 - [Material](https://material.angular.io/)
+- [Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
 ## 🔖 Layout
 
