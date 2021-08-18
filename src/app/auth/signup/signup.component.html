@@ -2,6 +2,7 @@
 	<form
 		fxLayout="column"
 		fxLayoutAlign="center center"
+		fxLayoutGap="15px"
 		#form="ngForm"
 		(ngSubmit)="onSubmit(form)"
 	>
@@ -38,6 +39,27 @@
 				>Has to be at least 6 characters long.</mat-error
 			>
 		</mat-form-field>
-		<button mat-raised-button color="primary" type="submit">Submit</button>
+		<mat-form-field>
+			<input
+				matInput
+				placeholder="Your Birthdate"
+				[matDatepicker]="picker"
+				[max]="maxDate"
+			/>
+			<mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker></mat-datepicker>
+		</mat-form-field>
+
+		<mat-checkbox ngModel name="agree" required color="primary"
+			>Agree to Terms and Conditions.</mat-checkbox
+		>
+		<button
+			mat-raised-button
+			color="primary"
+			type="submit"
+			[disabled]="!form.valid"
+		>
+			Submit
+		</button>
 	</form>
 </section>

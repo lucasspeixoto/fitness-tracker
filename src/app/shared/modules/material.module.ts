@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MatCardModule } from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -16,8 +17,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
 	imports: [
@@ -28,6 +31,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 		MatSidenavModule,
 		MatListModule,
 		MatCardModule,
+    MatCheckboxModule,
 		MatButtonModule,
 		MatSnackBarModule,
 		HttpClientModule,
@@ -39,6 +43,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 		MatSortModule,
 		MatDialogModule,
 		MatIconModule,
+		MatDatepickerModule,
+    MatNativeDateModule
 	],
 	exports: [
 		BrowserModule,
@@ -48,6 +54,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 		MatSidenavModule,
 		MatListModule,
 		MatCardModule,
+    MatCheckboxModule,
 		MatButtonModule,
 		MatSnackBarModule,
 		HttpClientModule,
@@ -59,6 +66,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 		MatSortModule,
 		MatDialogModule,
 		MatIconModule,
+		MatDatepickerModule,
+    MatNativeDateModule,
 	],
 })
 export class MaterialModule {}
