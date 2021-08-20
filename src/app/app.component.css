@@ -1,31 +1,25 @@
-section {
-  display: table;
+mat-sidenav-container,
+mat-sidenav,
+mat-sidenav {
+	height: 100%;
 }
 
-.example-label {
-  display: table-cell;
-  font-size: 14px;
-  margin-left: 8px;
-  min-width: 120px;
+mat-sidenav {
+	width: 25%;
 }
 
-.example-button-row {
-  display: table-cell;
-  width: 490px;
+a {
+	text-decoration: none;
+	color: #fff;
 }
 
-.example-button-row .mat-button-base {
-  margin: 8px 8px 8px 0;
+a:hover,
+a:active {
+	color: lightgray;
 }
 
-.example-flex-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.navigation-items {
+  list-style: none;
+	gap: 10px;
 }
 
-.example-button-container {
-  display: flex;
-  justify-content: center;
-  width: 120px;
-}

@@ -7,7 +7,8 @@
 ## 💻 Projeto
 
 [Fitness Tracker](https://github.com/lucasspeixoto/fitness-tracker.git) é um aplicativo para auxilio
-em atividades físicas, com controle de tempo de execução dos exercícios.
+em atividades físicas, com controle de tempo de execução dos exercícios. Desenvolvido com amor para
+minha noiva Liana Fernandes.
 
 ## ✨ Tecnologias
 
@@ -20,9 +21,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 🔖 Layout
 
-![interface](src/assets/images/layout.png 'Layout Atual')
+![interface](src/assets/images/layout1.png 'Vertical')
 
-![interface](src/assets/images/layout_.png 'Layout Atual')
+![interface](src/assets/images/layout2.png 'Horizontal')
 
 ## 🚀 Instalação
 
