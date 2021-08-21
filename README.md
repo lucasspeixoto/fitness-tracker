@@ -21,9 +21,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 🔖 Layout
 
-![interface](src/assets/images/layout1.png 'Vertical')
+![interface](src/assets/images/vertical.png 'Vertical')
 
-![interface](src/assets/images/layout2.png 'Horizontal')
+![interface](src/assets/images/horizontal.png 'Horizontal')
 
 ## 🚀 Instalação
 
