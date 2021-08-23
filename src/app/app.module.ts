@@ -19,6 +19,7 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { StopTrainingComponent } from './training/current-training/stop-training.component';
 import { AuthService } from './shared/services/auth.service';
+import { TrainingService } from './shared/services/training.service';
 
 @NgModule({
 	declarations: [
@@ -27,7 +28,7 @@ import { AuthService } from './shared/services/auth.service';
 		LoginComponent,
 		TrainingComponent,
 		CurrentTrainingComponent,
-    StopTrainingComponent,
+		StopTrainingComponent,
 		NewTrainingComponent,
 		PastTrainingComponent,
 		WelcomeComponent,
@@ -43,7 +44,7 @@ import { AuthService } from './shared/services/auth.service';
 		MaterialModule,
 		FlexLayoutModule,
 	],
-  providers:[AuthService],
+	providers: [AuthService, TrainingService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

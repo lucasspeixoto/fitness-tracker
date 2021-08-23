@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { TrainingService } from 'src/app/shared/services/training.service';
+import { Exercise } from './../../shared/models/exercise.model';
 
 /**
  * @title Basic select with initial value and no form
@@ -12,9 +14,13 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class NewTrainingComponent implements OnInit {
 	@Output() trainingStart = new EventEmitter<void>();
 
-	constructor() {}
+	exercises: Exercise[] = [];
 
-	ngOnInit(): void {}
+	constructor(private trainingService: TrainingService) {}
+
+	ngOnInit() {
+		this.exercises = this.trainingService.getAvailableExercises();
+	}
 
 	onStartTraining() {
 		this.trainingStart.emit();
