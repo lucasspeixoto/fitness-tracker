@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Exercise } from './../models/exercise.model';
 
 @Injectable()
 export class TrainingService {
+	exerciseChanged = new Subject<Exercise>();
+
 	availableExercises: Exercise[] = [
 		{ id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
 		{ id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 15 },
@@ -10,7 +13,20 @@ export class TrainingService {
 		{ id: 'burpees', name: 'Burpees', duration: 60, calories: 8 },
 	];
 
-  getAvailableExercises() {
-    return this.availableExercises.slice() //slice() create a new array for not change the original
-  }
+	private runningExercise: Exercise;
+
+	getAvailableExercises() {
+		return this.availableExercises.slice(); //slice() create a new array for not change the original
+	}
+
+	startExercise(selectedId: string) {
+		this.runningExercise = this.availableExercises.find(
+			exercice => exercice.id === selectedId,
+		);
+		this.exerciseChanged.next({ ...this.runningExercise });
+	}
+
+	getRunningExercise() {
+		return { ...this.runningExercise };
+	}
 }
