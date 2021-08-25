@@ -9,6 +9,6 @@ export const environment = {
 		storageBucket: firebaseKeys.STORAGE_BUCKET,
 		messagingSenderId: firebaseKeys.MESSAGING_SENDER_ID,
 		appId: firebaseKeys.APP_ID,
-		measurementId: firebaseKeys.MEASUREMENT_ID,
+	/* 	measurementId: firebaseKeys.MEASUREMENT_ID, */
 	},
 };
