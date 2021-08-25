@@ -21,6 +21,13 @@ import { StopTrainingComponent } from './training/current-training/stop-training
 import { AuthService } from './shared/services/auth.service';
 import { TrainingService } from './shared/services/training.service';
 
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -43,6 +50,11 @@ import { TrainingService } from './shared/services/training.service';
 		AppRoutingModule,
 		MaterialModule,
 		FlexLayoutModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule
 	],
 	providers: [AuthService, TrainingService],
 	bootstrap: [AppComponent],
