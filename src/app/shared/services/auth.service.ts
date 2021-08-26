@@ -9,6 +9,7 @@ import {
 	MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { TrainingService } from './training.service';
+import { UiService } from './ui.service';
 @Injectable()
 export class AuthService {
 	authChange = new Subject<boolean>();
@@ -21,7 +22,8 @@ export class AuthService {
 		private router: Router,
 		private angularFireAuth: AngularFireAuth,
 		private trainingService: TrainingService,
-		private _snackBar: MatSnackBar,
+		private matSnackBar: MatSnackBar,
+		private uiService: UiService,
 	) {}
 
 	initAuthListener() {
@@ -39,34 +41,40 @@ export class AuthService {
 		});
 	}
 
-	openSnackBar(message: string, action: string, duration: number) {
-		this._snackBar.open(message, action, {
+	showMessage(message: string, action: string) {
+		this.matSnackBar.open(message, action, {
 			panelClass: 'snack',
-			duration: duration * 1000,
+			duration: 1500,
 			horizontalPosition: this.horizontalPosition,
 			verticalPosition: this.verticalPosition,
 		});
 	}
 
 	registerUser(authData: AuthData) {
+		this.uiService.loadingStateChanged.next(true);
 		this.angularFireAuth
 			.createUserWithEmailAndPassword(authData.email, authData.password)
 			.then(result => {
-				this.openSnackBar('SignIn', 'X', 1.5);
+				this.uiService.loadingStateChanged.next(false);
+				this.showMessage('SignIn', 'X');
 			})
 			.catch(error => {
-				this.openSnackBar(error.message, 'X', 1.5);
+				this.uiService.loadingStateChanged.next(false);
+				this.showMessage(error.message, 'X');
 			});
 	}
 
 	login(authData: AuthData) {
+		this.uiService.loadingStateChanged.next(true);
 		this.angularFireAuth
 			.signInWithEmailAndPassword(authData.email, authData.password)
 			.then(result => {
-				this.openSnackBar('Logged In', 'X', 1.5);
+				this.uiService.loadingStateChanged.next(false);
+				this.showMessage('Logged In', 'X');
 			})
 			.catch(error => {
-				this.openSnackBar(error.message, 'X', 1.5);
+				this.uiService.loadingStateChanged.next(false);
+				this.showMessage(error.message, 'X');
 			});
 	}
 

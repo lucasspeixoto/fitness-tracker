@@ -27,6 +27,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
+import { LoadingComponent } from './shared/components/loading/loading.component';
+import { UiService } from './shared/services/ui.service';
 
 @NgModule({
 	declarations: [
@@ -41,6 +43,7 @@ import { environment } from 'src/environments/environment';
 		WelcomeComponent,
 		HeaderComponent,
 		SidenavListComponent,
+		LoadingComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -51,12 +54,12 @@ import { environment } from 'src/environments/environment';
 		MaterialModule,
 		FlexLayoutModule,
 
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFirestoreModule,
-    AngularFireAuthModule
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireDatabaseModule,
+		AngularFirestoreModule,
+		AngularFireAuthModule,
 	],
-	providers: [AuthService, TrainingService],
+	providers: [AuthService, TrainingService, UiService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
