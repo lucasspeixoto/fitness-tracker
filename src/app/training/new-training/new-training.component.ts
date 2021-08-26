@@ -1,38 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { FormGroup, NgForm } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TrainingService } from 'src/app/shared/services/training.service';
 import { Exercise } from './../../shared/models/exercise.model';
-
-/**
- * @title Basic select with initial value and no form
- */
-
+import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 @Component({
 	selector: 'app-new-training',
 	templateUrl: './new-training.component.html',
 	styleUrls: ['./new-training.component.css'],
 })
-export class NewTrainingComponent implements OnInit {
-	exercises: any; //Exercise[] = [];
+export class NewTrainingComponent implements OnInit, OnDestroy {
+	exercises: Exercise[];
 
-	constructor(
-		private trainingService: TrainingService,
-		private angularFireDatabase: AngularFireDatabase,
-		private angularFirestore: AngularFirestore,
-	) {}
+	exerciseSubscription: Subscription;
+
+	constructor(private trainingService: TrainingService) {}
 
 	ngOnInit() {
-		this.angularFireDatabase
-			.list('/availableExercises')
-			.valueChanges()
-			.subscribe(data => {
-				console.log(data);
-			});
+		this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
+			(exercises: Exercise[]): void => {
+				this.exercises = exercises;
+			},
+		);
+		this.trainingService.fetchAvailableExercises();
 	}
 
 	onStartTraining(form: NgForm) {
 		this.trainingService.startExercise(form.value.exercise);
+	}
+
+	ngOnDestroy() {
+		this.exerciseSubscription.unsubscribe();
 	}
 }
