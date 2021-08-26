@@ -3,8 +3,8 @@ import {
 	AngularFirestore,
 	AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { Exercise } from './../models/exercise.model';
 
 @Injectable()
@@ -17,15 +17,17 @@ export class TrainingService {
 	private runningExercise: Exercise;
 	private finishedExercises: Exercise[] = [];
 	private exerciseCollection: AngularFirestoreCollection<Exercise>;
+	private firebaseSubscription: Subscription[] = [];
 
 	constructor(private angularFirestore: AngularFirestore) {}
 
 	fetchAvailableExercises() {
-		this.exerciseCollection =
-			this.angularFirestore.collection<Exercise>('availableExercises');
-		this.exerciseCollection
+		//this.firebaseSubscription.push(
+		this.angularFirestore
+			.collection<Exercise>('availableExercises')
 			.snapshotChanges()
 			.pipe(
+				take(1),
 				map(actions =>
 					actions.map(a => {
 						const data = a.payload.doc.data() as Exercise;
@@ -38,10 +40,11 @@ export class TrainingService {
 				this.availableExercises = exercises;
 				this.exercisesChanged.next([...this.availableExercises]);
 			});
+		//);
 	}
 
 	startExercise(selectedId: string) {
-    //this.angularFirestore.doc(`availableExercises/${selectedId}`).update({lastSelected: new Date()});
+		//this.angularFirestore.doc(`availableExercises/${selectedId}`).update({lastSelected: new Date()});
 		this.runningExercise = this.availableExercises.find(
 			exercice => exercice.id === selectedId,
 		);
@@ -75,13 +78,22 @@ export class TrainingService {
 	}
 
 	fetchCompletedOrCancelledExercises() {
+		//this.firebaseSubscription.push(
 		this.angularFirestore
 			.collection('finishedExercises')
 			.valueChanges()
+			.pipe(take(1))
 			.subscribe((exercises: Exercise[]): void => {
 				this.finishedExercises = exercises;
 				this.finishedExercisesChanged.next([...this.finishedExercises]);
 			});
+		//);
+	}
+
+	cancelSubscriptions() {
+		this.firebaseSubscription.forEach(subscription =>
+			subscription.unsubscribe(),
+		);
 	}
 
 	private addDataToDatabase(exercise: Exercise) {

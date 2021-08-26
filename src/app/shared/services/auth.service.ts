@@ -1,34 +1,61 @@
-import { Inject, Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthData } from '../models/auth-data.model';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {
+	MatSnackBar,
+	MatSnackBarHorizontalPosition,
+	MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { TrainingService } from './training.service';
 @Injectable()
 export class AuthService {
 	authChange = new Subject<boolean>();
 	private isAuthenticated: boolean = false;
 
+	horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+	verticalPosition: MatSnackBarVerticalPosition = 'top';
+
 	constructor(
 		private router: Router,
 		private angularFireAuth: AngularFireAuth,
-		public ngZone: NgZone,
-    private _snackBar: MatSnackBar
+		private trainingService: TrainingService,
+		private _snackBar: MatSnackBar,
 	) {}
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
-  }
+	initAuthListener() {
+		this.angularFireAuth.authState.subscribe((user: any) => {
+			if (user) {
+				this.isAuthenticated = true;
+				this.authChange.next(true);
+				this.router.navigate(['/training']);
+			} else {
+				//this.trainingService.cancelSubscriptions(); //With Subscription instead of take operator
+				this.authChange.next(false);
+				this.router.navigate(['/login']);
+				this.isAuthenticated = false;
+			}
+		});
+	}
+
+	openSnackBar(message: string, action: string, duration: number) {
+		this._snackBar.open(message, action, {
+			panelClass: 'snack',
+			duration: duration * 1000,
+			horizontalPosition: this.horizontalPosition,
+			verticalPosition: this.verticalPosition,
+		});
+	}
 
 	registerUser(authData: AuthData) {
 		this.angularFireAuth
 			.createUserWithEmailAndPassword(authData.email, authData.password)
 			.then(result => {
-				console.log(result);
-				this.authSuccessFully();
+				this.openSnackBar('SignIn', 'X', 1.5);
 			})
 			.catch(error => {
-				console.log(error.message);
+				this.openSnackBar(error.message, 'X', 1.5);
 			});
 	}
 
@@ -36,27 +63,18 @@ export class AuthService {
 		this.angularFireAuth
 			.signInWithEmailAndPassword(authData.email, authData.password)
 			.then(result => {
-				this.openSnackBar('Logado', 'X')
-				this.authSuccessFully();
+				this.openSnackBar('Logged In', 'X', 1.5);
 			})
 			.catch(error => {
-				this.openSnackBar(error.message, 'X')
+				this.openSnackBar(error.message, 'X', 1.5);
 			});
 	}
 
 	logout() {
-		this.authChange.next(false);
-		this.router.navigate(['/login']);
-		this.isAuthenticated = false;
+		this.angularFireAuth.signOut();
 	}
 
 	isAuth() {
 		return this.isAuthenticated;
-	}
-
-	authSuccessFully() {
-		this.isAuthenticated = true;
-		this.authChange.next(true);
-		this.router.navigate(['/training']);
 	}
 }
