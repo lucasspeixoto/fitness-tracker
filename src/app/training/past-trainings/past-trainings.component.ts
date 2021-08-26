@@ -37,7 +37,6 @@ export class PastTrainingsComponent
 					this.dataSource.data = exercises;
 				},
 			);
-
 		this.trainingService.fetchCompletedOrCancelledExercises();
 	}
 

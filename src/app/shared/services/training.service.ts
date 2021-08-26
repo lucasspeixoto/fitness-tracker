@@ -41,6 +41,7 @@ export class TrainingService {
 	}
 
 	startExercise(selectedId: string) {
+    //this.angularFirestore.doc(`availableExercises/${selectedId}`).update({lastSelected: new Date()});
 		this.runningExercise = this.availableExercises.find(
 			exercice => exercice.id === selectedId,
 		);
