@@ -11,6 +11,7 @@ export class AuthService {
 	authChange = new Subject<boolean>();
 	private isAuthenticated: boolean = false;
 
+
 	constructor(
 		private router: Router,
 		private angularFireAuth: AngularFireAuth,
@@ -24,11 +25,13 @@ export class AuthService {
 				this.isAuthenticated = true;
 				this.authChange.next(true);
 				this.router.navigate(['/training']);
+        localStorage.setItem('isLogged', 'yes')
 			} else {
 				this.trainingService.cancelSubscriptions();
 				this.authChange.next(false);
 				this.router.navigate(['/login']);
 				this.isAuthenticated = false;
+        localStorage.removeItem('isLogged');
 			}
 		});
 	}
@@ -44,6 +47,7 @@ export class AuthService {
 			.catch(error => {
 				this.uiService.loadingStateChanged.next(false);
 				this.uiService.showMessage(error.message, 'X');
+        localStorage.removeItem('isLogged');
 			});
 	}
 
@@ -54,19 +58,23 @@ export class AuthService {
 			.then(result => {
 				this.uiService.loadingStateChanged.next(false);
 				this.uiService.showMessage('Logged In', 'X');
+        localStorage.setItem('isLogged', 'yes')
 			})
 			.catch(error => {
 				console.log('Erro');
 				this.uiService.loadingStateChanged.next(false);
 				this.uiService.showMessage(error.message, 'X');
+        localStorage.removeItem('isLogged');
 			});
 	}
 
 	logout() {
+    localStorage.removeItem('isLogged');
 		this.angularFireAuth.signOut();
 	}
 
 	isAuth() {
-		return this.isAuthenticated;
+		//return this.isAuthenticated;
+    return localStorage.getItem('isLogged')
 	}
 }
