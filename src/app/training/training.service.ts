@@ -14,10 +14,10 @@ export class TrainingService {
 	exercisesChanged = new Subject<Exercise[]>();
 	finishedExercisesChanged = new Subject<Exercise[]>();
 
+	//private exerciseCollection: AngularFirestoreCollection<Exercise>;
 	private availableExercises: Exercise[] = [];
 	private runningExercise: Exercise;
 	private finishedExercises: Exercise[] = [];
-	private exerciseCollection: AngularFirestoreCollection<Exercise>;
 	private firebaseSubscription: Subscription[] = [];
 
 	constructor(
@@ -26,6 +26,7 @@ export class TrainingService {
 	) {}
 
 	fetchAvailableExercises() {
+		this.uiService.loadingStateChanged.next(true);
 		this.firebaseSubscription.push(
 			this.angularFirestore
 				.collection<Exercise>('availableExercises')
@@ -46,13 +47,13 @@ export class TrainingService {
 						this.exercisesChanged.next([...this.availableExercises]);
 					},
 					error => {
-            this.uiService.loadingStateChanged.next(false);
+						this.uiService.loadingStateChanged.next(false);
 						this.uiService.showMessage(
 							'Fetching Exercises failed, please contact administrator (19 98262-1117)',
 							null,
 							5000,
 						);
-            this.exercisesChanged.next(null);
+						this.exercisesChanged.next(null);
 					},
 				),
 		);
@@ -61,13 +62,9 @@ export class TrainingService {
 	startExercise(selectedId: string) {
 		//this.angularFirestore.doc(`availableExercises/${selectedId}`).update({lastSelected: new Date()});
 		this.runningExercise = this.availableExercises.find(
-			exercice => exercice.id === selectedId,
+			exercise => exercise.id === selectedId,
 		);
 		this.exerciseChanged.next({ ...this.runningExercise });
-	}
-
-	getRunningExercise() {
-		return { ...this.runningExercise };
 	}
 
 	completeExercise() {
@@ -90,6 +87,10 @@ export class TrainingService {
 		});
 		this.runningExercise = null;
 		this.exerciseChanged.next(null);
+	}
+
+	getRunningExercise() {
+		return { ...this.runningExercise };
 	}
 
 	fetchCompletedOrCancelledExercises() {

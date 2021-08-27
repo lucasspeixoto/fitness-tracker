@@ -6,16 +6,14 @@ import {
 } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 
-@Injectable({
-	providedIn: 'root',
-})
+@Injectable()
 export class UiService {
 	loadingStateChanged = new Subject<boolean>();
 
 	horizontalPosition: MatSnackBarHorizontalPosition = 'center';
 	verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  constructor(private matSnackBar: MatSnackBar) {}
+	constructor(private matSnackBar: MatSnackBar) {}
 
 	showMessage(message: string, action: string, duration?: number) {
 		this.matSnackBar.open(message, action, {
@@ -25,6 +23,4 @@ export class UiService {
 			verticalPosition: this.verticalPosition,
 		});
 	}
-
-
 }

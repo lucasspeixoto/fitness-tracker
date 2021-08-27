@@ -9,7 +9,6 @@ const authRoutes: Routes = [
 	{ path: 'signup', component: SignupComponent },
 	{ path: 'login', component: LoginComponent },
 ];
-
 @NgModule({
 	imports: [RouterModule.forChild(authRoutes)],
 	exports: [RouterModule],

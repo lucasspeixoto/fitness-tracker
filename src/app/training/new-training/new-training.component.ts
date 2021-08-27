@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
 import { TrainingService } from 'src/app/training/training.service';
 import { Exercise } from '../exercise.model';
-import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UiService } from 'src/app/shared/ui.service';
-import { take } from 'rxjs/operators';
+
 @Component({
 	selector: 'app-new-training',
 	templateUrl: './new-training.component.html',
@@ -33,7 +34,6 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
 		this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
 			(exercises: Exercise[]) => {
 				this.exercises = exercises;
-        console.log('Obteve')
 			},
 		);
 		this.fetchExercises()
