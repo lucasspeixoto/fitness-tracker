@@ -22,25 +22,24 @@ export class TrainingService {
 	constructor(private angularFirestore: AngularFirestore) {}
 
 	fetchAvailableExercises() {
-		//this.firebaseSubscription.push(
-		this.angularFirestore
-			.collection<Exercise>('availableExercises')
-			.snapshotChanges()
-			.pipe(
-				take(1),
-				map(actions =>
-					actions.map(a => {
-						const data = a.payload.doc.data() as Exercise;
-						const id = a.payload.doc.id;
-						return { id, ...data };
-					}),
-				),
-			)
-			.subscribe((exercises: Exercise[]) => {
-				this.availableExercises = exercises;
-				this.exercisesChanged.next([...this.availableExercises]);
-			});
-		//);
+		this.firebaseSubscription.push(
+			this.angularFirestore
+				.collection<Exercise>('availableExercises')
+				.snapshotChanges()
+				.pipe(
+					map(actions =>
+						actions.map(a => {
+							const data = a.payload.doc.data() as Exercise;
+							const id = a.payload.doc.id;
+							return { id, ...data };
+						}),
+					),
+				)
+				.subscribe((exercises: Exercise[]) => {
+					this.availableExercises = exercises;
+					this.exercisesChanged.next([...this.availableExercises]);
+				}),
+		);
 	}
 
 	startExercise(selectedId: string) {
@@ -78,16 +77,15 @@ export class TrainingService {
 	}
 
 	fetchCompletedOrCancelledExercises() {
-		//this.firebaseSubscription.push(
-		this.angularFirestore
-			.collection('finishedExercises')
-			.valueChanges()
-			.pipe(take(1))
-			.subscribe((exercises: Exercise[]): void => {
-				this.finishedExercises = exercises;
-				this.finishedExercisesChanged.next([...this.finishedExercises]);
-			});
-		//);
+		this.firebaseSubscription.push(
+			this.angularFirestore
+				.collection('finishedExercises')
+				.valueChanges()
+				.subscribe((exercises: Exercise[]): void => {
+					this.finishedExercises = exercises;
+					this.finishedExercisesChanged.next([...this.finishedExercises]);
+				}),
+		);
 	}
 
 	cancelSubscriptions() {
