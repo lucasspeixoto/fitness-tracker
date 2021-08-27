@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TrainingService } from 'src/app/shared/services/training.service';
-import { Exercise } from './../../shared/models/exercise.model';
+import { TrainingService } from 'src/app/training/training.service';
+import { Exercise } from '../exercise.model';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { UiService } from 'src/app/shared/services/ui.service';
+import { UiService } from 'src/app/shared/ui.service';
 import { take } from 'rxjs/operators';
 @Component({
 	selector: 'app-new-training',
@@ -13,11 +13,11 @@ import { take } from 'rxjs/operators';
 export class NewTrainingComponent implements OnInit, OnDestroy {
 	exercises: Exercise[];
 
-	exerciseSubscription: Subscription;
+	private exerciseSubscription: Subscription;
 
 	isLoading: boolean = true;
 
-	loadingSubscription: Subscription;
+	private loadingSubscription: Subscription;
 
 	constructor(
 		private trainingService: TrainingService,
@@ -33,6 +33,7 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
 		this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
 			(exercises: Exercise[]) => {
 				this.exercises = exercises;
+        console.log('Obteve')
 			},
 		);
 		this.fetchExercises()

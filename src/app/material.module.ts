@@ -15,11 +15,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { BrowserModule } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from 'src/app/app-routing.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,9 +24,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
 	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
 		MatToolbarModule,
 		MatSidenavModule,
 		MatListModule,
@@ -53,9 +47,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatProgressSpinnerModule
 	],
 	exports: [
-		BrowserModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
 		MatToolbarModule,
 		MatSidenavModule,
 		MatListModule,

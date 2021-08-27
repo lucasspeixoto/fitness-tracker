@@ -3,9 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs';
-import { AuthData } from '../models/auth-data.model';
-import { TrainingService } from './training.service';
-import { UiService } from './ui.service';
+import { AuthData } from './auth-data.model';
+import { TrainingService } from '../training/training.service';
+import { UiService } from '../shared/ui.service';
 @Injectable()
 export class AuthService {
 	authChange = new Subject<boolean>();

@@ -5,8 +5,8 @@ import {
 } from '@angular/fire/firestore';
 import { Subject, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { Exercise } from './../models/exercise.model';
-import { UiService } from './ui.service';
+import { Exercise } from './exercise.model';
+import { UiService } from '../shared/ui.service';
 
 @Injectable()
 export class TrainingService {

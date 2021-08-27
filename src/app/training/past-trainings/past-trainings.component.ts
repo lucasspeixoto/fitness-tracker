@@ -9,8 +9,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { TrainingService } from 'src/app/shared/services/training.service';
-import { Exercise } from '../../shared/models/exercise.model';
+import { TrainingService } from 'src/app/training/training.service';
+import { Exercise } from '../exercise.model';
 
 @Component({
 	selector: 'app-past-trainings',
@@ -50,6 +50,8 @@ export class PastTrainingsComponent
 	}
 
 	ngOnDestroy() {
-		this.finishedExercisesSubscription.unsubscribe();
+		if (this.finishedExercisesSubscription) {
+			this.finishedExercisesSubscription.unsubscribe();
+		}
 	}
 }

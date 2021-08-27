@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { Exercise } from 'src/app/shared/models/exercise.model';
-import { TrainingService } from 'src/app/shared/services/training.service';
+import { Exercise } from 'src/app/training/exercise.model';
+import { TrainingService } from 'src/app/training/training.service';
 import { StopTrainingComponent } from './stop-training.component';
 
 @Component({
@@ -15,7 +15,7 @@ export class CurrentTrainingComponent implements OnInit {
 	progress: number = 0;
 	timer;
 
-	exerciseSubscription: Subscription;
+	private exerciseSubscription: Subscription;
 	runningExercise: Exercise;
 
 	constructor(
