@@ -6,6 +6,7 @@ import {
 import { Subject, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Exercise } from './../models/exercise.model';
+import { UiService } from './ui.service';
 
 @Injectable()
 export class TrainingService {
@@ -19,7 +20,10 @@ export class TrainingService {
 	private exerciseCollection: AngularFirestoreCollection<Exercise>;
 	private firebaseSubscription: Subscription[] = [];
 
-	constructor(private angularFirestore: AngularFirestore) {}
+	constructor(
+		private angularFirestore: AngularFirestore,
+		private uiService: UiService,
+	) {}
 
 	fetchAvailableExercises() {
 		this.firebaseSubscription.push(
@@ -35,10 +39,22 @@ export class TrainingService {
 						}),
 					),
 				)
-				.subscribe((exercises: Exercise[]) => {
-					this.availableExercises = exercises;
-					this.exercisesChanged.next([...this.availableExercises]);
-				}),
+				.subscribe(
+					(exercises: Exercise[]) => {
+						this.uiService.loadingStateChanged.next(false);
+						this.availableExercises = exercises;
+						this.exercisesChanged.next([...this.availableExercises]);
+					},
+					error => {
+            this.uiService.loadingStateChanged.next(false);
+						this.uiService.showMessage(
+							'Fetching Exercises failed, please contact administrator (19 98262-1117)',
+							null,
+							5000,
+						);
+            this.exercisesChanged.next(null);
+					},
+				),
 		);
 	}
 
