@@ -40,6 +40,7 @@
 			>
 		</mat-form-field>
 		<button
+    *ngIf="!(isLoading$ | async)"
 			mat-raised-button
 			color="primary"
 			type="submit"
@@ -47,6 +48,6 @@
 		>
 			Login
 		</button>
-    <app-loading *ngIf="isLoading"></app-loading>
+    <loading *ngIf="(isLoading$ | async)"></loading>
 	</form>
 </section>

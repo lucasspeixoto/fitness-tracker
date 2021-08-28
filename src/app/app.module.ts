@@ -16,19 +16,17 @@ import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/training.service';
 
 import { environment } from 'src/environments/environment';
-import { LoadingComponent } from './components/loading/loading.component';
 import { UiService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
-import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './material.module';
-
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './app.reducer';
 @NgModule({
 	declarations: [
 		AppComponent,
 		WelcomeComponent,
 		HeaderComponent,
 		SidenavListComponent,
-		LoadingComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -40,6 +38,7 @@ import { MaterialModule } from './material.module';
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFireDatabaseModule,
 		AngularFirestoreModule,
+		StoreModule.forRoot(reducers),
 	],
 	providers: [AuthService, TrainingService, UiService],
 	bootstrap: [AppComponent],

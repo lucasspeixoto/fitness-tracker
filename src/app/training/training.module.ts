@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { LoadingComponent } from '../components/loading/loading.component';
 import { SharedModule } from '../shared/shared.module';
 import { CurrentTrainingComponent } from './current-training/current-training.component';
 import { StopTrainingComponent } from './current-training/stop-training.component';
@@ -14,6 +15,7 @@ import { TrainingComponent } from './training.component';
 		StopTrainingComponent,
 		NewTrainingComponent,
 		PastTrainingsComponent,
+    LoadingComponent
 	],
 	imports: [
 		SharedModule,

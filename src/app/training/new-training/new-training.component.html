@@ -20,7 +20,7 @@
 						</mat-option>
 					</mat-select>
 				</mat-form-field>
-				<app-loading *ngIf="isLoading"></app-loading>
+
 			</mat-card-content>
 			<mat-card-actions fxLayoutAlign="center" *ngIf="!isLoading">
 				<button
@@ -44,4 +44,5 @@
 			</mat-card-actions>
 		</mat-card>
 	</form>
+  <loading *ngIf="isLoading"></loading>
 </section>

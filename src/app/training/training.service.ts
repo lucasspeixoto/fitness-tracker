@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-	AngularFirestore,
-	AngularFirestoreCollection,
-} from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Subject, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Exercise } from './exercise.model';
 import { UiService } from '../shared/ui.service';
 
@@ -29,7 +26,7 @@ export class TrainingService {
 		this.uiService.loadingStateChanged.next(true);
 		this.firebaseSubscription.push(
 			this.angularFirestore
-				.collection<Exercise>('availableExercises')
+				.collection('availableExercises')
 				.snapshotChanges()
 				.pipe(
 					map(actions =>
