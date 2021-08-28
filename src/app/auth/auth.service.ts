@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
 import { AuthData } from './auth-data.model';
 import { TrainingService } from '../training/training.service';
 import { UiService } from '../shared/ui.service';
@@ -11,8 +10,6 @@ import * as UI from '../shared/ui.actions';
 import * as Auth from './auth.actions';
 @Injectable()
 export class AuthService {
-	authChange = new Subject<boolean>();
-	private isAuthenticated: boolean = false;
 
 	constructor(
 		private router: Router,
@@ -71,7 +68,4 @@ export class AuthService {
 		this.angularFireAuth.signOut();
 	}
 
-	isAuth() {
-		return this.isAuthenticated;
-	}
 }

@@ -25,4 +25,6 @@ export class AuthGuard implements CanActivate, CanLoad {
 	canLoad(route: Route) {
 		return this.store.select(fromRoot.getIsAuth).pipe(take(1));
 	}
+
+  // * .pipe(take(1)) finaliza após obter o primeiro valor.
 }
