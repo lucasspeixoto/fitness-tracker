@@ -49,7 +49,6 @@
 			<mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
 			<mat-datepicker #picker></mat-datepicker>
 		</mat-form-field>
-
 		<mat-checkbox ngModel name="agree" required color="primary"
 			>Agree to Terms and Conditions.</mat-checkbox
 		>
@@ -61,6 +60,6 @@
 		>
 			Submit
 		</button>
-    <loading *ngIf="isLoading"></loading>
+    <loading *ngIf="(isLoading$ | async)"></loading>
 	</form>
 </section>

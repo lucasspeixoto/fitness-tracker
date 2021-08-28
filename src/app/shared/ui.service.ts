@@ -4,12 +4,9 @@ import {
 	MatSnackBarHorizontalPosition,
 	MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { Subject } from 'rxjs';
 
 @Injectable()
 export class UiService {
-	loadingStateChanged = new Subject<boolean>();
-
 	horizontalPosition: MatSnackBarHorizontalPosition = 'center';
 	verticalPosition: MatSnackBarVerticalPosition = 'top';
 

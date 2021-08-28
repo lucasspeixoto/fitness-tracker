@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 import { Exercise } from './exercise.model';
 import { UiService } from '../shared/ui.service';
-
+import * as UI from '../shared/ui.actions';
+import * as fromRoot from '../app.reducer';
 @Injectable()
 export class TrainingService {
 	exerciseChanged = new Subject<Exercise>();
@@ -20,10 +22,12 @@ export class TrainingService {
 	constructor(
 		private angularFirestore: AngularFirestore,
 		private uiService: UiService,
+		private store: Store<fromRoot.State>,
 	) {}
 
 	fetchAvailableExercises() {
-		this.uiService.loadingStateChanged.next(true);
+    this.store.dispatch(new UI.StartLoading())
+		/* this.uiService.loadingStateChanged.next(true); */
 		this.firebaseSubscription.push(
 			this.angularFirestore
 				.collection('availableExercises')
@@ -39,12 +43,14 @@ export class TrainingService {
 				)
 				.subscribe(
 					(exercises: Exercise[]) => {
-						this.uiService.loadingStateChanged.next(false);
+            this.store.dispatch(new UI.StopLoading())
+						/* this.uiService.loadingStateChanged.next(false); */
 						this.availableExercises = exercises;
 						this.exercisesChanged.next([...this.availableExercises]);
 					},
 					error => {
-						this.uiService.loadingStateChanged.next(false);
+            this.store.dispatch(new UI.StopLoading())
+						/* this.uiService.loadingStateChanged.next(false); */
 						this.uiService.showMessage(
 							'Fetching Exercises failed, please contact administrator (19 98262-1117)',
 							null,

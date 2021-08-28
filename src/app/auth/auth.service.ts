@@ -8,6 +8,7 @@ import { TrainingService } from '../training/training.service';
 import { UiService } from '../shared/ui.service';
 import * as fromRoot from '../app.reducer';
 import * as UI from '../shared/ui.actions';
+import * as Auth from './auth.actions';
 @Injectable()
 export class AuthService {
 	authChange = new Subject<boolean>();
@@ -24,13 +25,15 @@ export class AuthService {
 	initAuthListener() {
 		this.angularFireAuth.authState.subscribe(user => {
 			if (user) {
-				this.isAuthenticated = true;
-				this.authChange.next(true);
+				/* this.isAuthenticated = true;
+				this.authChange.next(true); */
+        this.store.dispatch(new Auth.SetAuthenticated)
 				this.router.navigate(['/training']);
 			} else {
 				this.trainingService.cancelSubscriptions();
-				this.isAuthenticated = false;
-				this.authChange.next(false);
+        this.store.dispatch(new Auth.SetUnauthenticated)
+				/* this.isAuthenticated = false;
+				this.authChange.next(false); */
 				this.router.navigate(['/login']);
 			}
 		});
