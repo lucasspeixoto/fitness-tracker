@@ -8,12 +8,12 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [SignupComponent, LoginComponent],
-  imports: [
-    ReactiveFormsModule,
-    AngularFireAuthModule,
-    SharedModule,
-    AuthRoutingModule
-  ]
+	declarations: [SignupComponent, LoginComponent],
+	imports: [
+		ReactiveFormsModule,
+		AngularFireAuthModule,
+		SharedModule,
+		AuthRoutingModule,
+	],
 })
 export class AuthModule {}

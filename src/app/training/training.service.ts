@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Subject, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+
 import { Exercise } from './exercise.model';
 import { UiService } from '../shared/ui.service';
 import * as UI from '../shared/ui.actions';

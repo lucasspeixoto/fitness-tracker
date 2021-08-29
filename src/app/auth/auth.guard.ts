@@ -3,12 +3,9 @@ import {
 	CanActivate,
 	ActivatedRouteSnapshot,
 	RouterStateSnapshot,
-	Router,
 	CanLoad,
 	Route,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 
@@ -26,5 +23,5 @@ export class AuthGuard implements CanActivate, CanLoad {
 		return this.store.select(fromRoot.getIsAuth).pipe(take(1));
 	}
 
-  // * .pipe(take(1)) finaliza após obter o primeiro valor.
+	// * .pipe(take(1)) finaliza após obter o primeiro valor.
 }
