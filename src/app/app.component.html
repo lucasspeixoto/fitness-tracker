@@ -4,8 +4,8 @@
 		<app-sidenav-list (closeSidenav)="sidenav.close()"></app-sidenav-list>
 	</mat-sidenav>
 
-	<mat-sidenav-content>
-		<app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+	<mat-sidenav-content [ngClass]="{'dark-theme-mode': isDarkTheme}" class="dark-theme-mode">
+		<app-header (sidenavToggle)="sidenav.toggle()" (themeChange)="themeChange()"></app-header>
 		<main>
 			<router-outlet></router-outlet>
 		</main>

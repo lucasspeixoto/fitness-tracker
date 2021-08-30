@@ -19,5 +19,15 @@ a:active {
 }
 
 .logout {
-  cursor: pointer;
+	cursor: pointer;
 }
+
+.toggle-theme {
+	margin-top: 6vh;
+}
+
+ @media (max-width: 598px) {
+  .toggle-theme {
+    margin-top: 1vh;
+  }
+ }

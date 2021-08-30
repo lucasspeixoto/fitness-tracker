@@ -6,9 +6,20 @@ import { AuthService } from './auth/auth.service';
 	styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-	constructor(private authService: AuthService) {}
+
+  isDarkTheme: boolean;
+
+	constructor(private authService: AuthService) {
+    let theme = localStorage.getItem('theme')
+    this.isDarkTheme = theme === 'Dark' ? true : false
+  }
 
 	ngOnInit() {
 		this.authService.initAuthListener();
+
 	}
+
+  themeChange() {
+    this.isDarkTheme = !this.isDarkTheme
+  }
 }
