@@ -19,7 +19,8 @@
 			labelPosition="before"
 			(change)="storeThemeSelection()"
 		>
-			<mat-icon>bedtime</mat-icon>
+			<mat-icon *ngIf="isDarkTheme">bedtime</mat-icon>
+      <mat-icon *ngIf="!isDarkTheme">wb_sunny</mat-icon>
 		</mat-slide-toggle>
 		<ul fxLayout class="navigation-items" fxHide.xs>
 			<li *ngIf="!(isAuth$ | async)"><a routerLink="/signup">Signup</a></li>

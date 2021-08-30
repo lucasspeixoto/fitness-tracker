@@ -1,10 +1,10 @@
-<mat-sidenav-container>
+<mat-sidenav-container [ngClass]="{'dark-theme-mode': isDarkTheme}">
 	<!-- ! Not set <mat-sidenav> into a component -->
 	<mat-sidenav #sidenav role="navigation">
 		<app-sidenav-list (closeSidenav)="sidenav.close()"></app-sidenav-list>
 	</mat-sidenav>
 
-	<mat-sidenav-content [ngClass]="{'dark-theme-mode': isDarkTheme}" class="dark-theme-mode">
+	<mat-sidenav-content>
 		<app-header (sidenavToggle)="sidenav.toggle()" (themeChange)="themeChange()"></app-header>
 		<main>
 			<router-outlet></router-outlet>
