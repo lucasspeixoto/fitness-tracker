@@ -45,3 +45,11 @@ Thumbs.db
 
 # Server Files
 env.ts
+
+# Firebase
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules
+.github
+.firebase
