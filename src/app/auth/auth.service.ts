@@ -55,9 +55,9 @@ export class AuthService {
 				let user = {
 					userId: result.user.uid,
 					email: result.user.email,
-          exercises: []
 				};
 				this.setUserData(user);
+        this.setUserLocally(user);
 				this.store.dispatch(new UI.StopLoading());
 				this.uiService.showMessage('SignIn', 'X');
 			})
